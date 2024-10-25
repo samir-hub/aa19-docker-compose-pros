@@ -1,0 +1,21 @@
+
+version: "3"
+
+services:
+  drupal:
+    build: .
+    image: slilienfeld/drupalimage:latest
+    ports:
+      - 8080:80
+    depends_on:
+      - "postgres"
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_PASSWORD=somepassword
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
